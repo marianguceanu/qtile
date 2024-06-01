@@ -1,5 +1,4 @@
 from libqtile import bar, layout, qtile, widget, hook
-from libqtile.widget import backlight
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 import os
@@ -129,7 +128,10 @@ for i in groups:
 
 layouts = [
     layout.Max(),
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2),
+    layout.Columns(
+        border_focus_stack=["#d75f5f", "#8f3d3d"],
+        border_width=2,
+    ),
     layout.MonadTall(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -182,6 +184,7 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="pavucontrol"),  # pavucontrol
         Match(wm_class="blueman-manager"),  # blueman-manager
+        Match(wm_class="wlogout"),  # wlogout
     ]
 )
 auto_fullscreen = True
@@ -202,27 +205,39 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(),
-                widget.Sep(padding=10),
-                widget.CurrentLayout(),
-                widget.Sep(padding=10),
                 widget.TaskList(
-                    highlight_method="block",
+                    title_width_method="uniform",
+                    highlight_method="line",
                 ),
-                widget.Sep(padding=10),
-                widget.Clock(format="%Y-%m-%d %H:%M"),
-                widget.Sep(padding=10),
+                widget.DF(
+                    warn_space=512,
+                    visible_on_warn=True,
+                    format="  {f}|{s}{m}",
+                ),
+                widget.Clock(
+                    # clock icon: 
+                    format="  %H:%M",
+                    fmt="<span color='#ff79c6'>{}</span>",
+                    padding=10,
+                ),
                 widget.Battery(
-                    charge_char="⚡",
-                    discharge_char="󰁹",
-                    format="{char} {percent:2.0%}",
+                    # charging icon: 
+                    charge_char=" ",
+                    discharge_char=" ",
+                    format="{char}{percent:2.0%}",
                     update_interval=5,
+                    foreground="#50fa7b",
                 ),
-                widget.Sep(padding=10),
                 widget.Volume(
                     fmt="  {}",
+                    padding=10,
                 ),
-                widget.Sep(padding=10),
-                widget.Systray(),
+                widget.Systray(
+                    background="#282a36",
+                ),
+                widget.CurrentLayoutIcon(
+                    scale=0.8,
+                ),
             ],
             32,
             # background="#282a36",
