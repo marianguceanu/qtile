@@ -15,3 +15,7 @@ picom &
 
 # Start nitrogen
 nitrogen --restore &
+
+# Start dunst
+killall dunst
+dunst &

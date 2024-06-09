@@ -100,7 +100,19 @@ for vt in range(1, 8):
     )
 
 
+# groups = [
+#     Group("1", label=" "),
+#     Group("2", label=" "),
+#     Group("3", label="󰊻 "),
+#     Group("4", label=""),
+#     Group("5", label=""),
+#     Group("6", label=""),
+#     Group("7", label=""),
+#     Group("8", label=""),
+#     Group("9", label="?"),
+# ]
 groups = [Group(i) for i in "123456789"]
+# groups = [Group(i) for i in "abcdefghi"]
 
 for i in groups:
     keys.extend(
@@ -127,12 +139,21 @@ for i in groups:
     )
 
 layouts = [
-    layout.Max(),
-    layout.Columns(
-        border_focus_stack=["#d75f5f", "#8f3d3d"],
-        border_width=2,
+    layout.Max(
+        border_width=3,
+        border_focus="#215578",
+        margin=10,
     ),
-    layout.MonadTall(),
+    layout.Columns(
+        margin=10,
+        border_focus="#215578",
+        border_width=3,
+    ),
+    layout.MonadTall(
+        border_width=3,
+        border_focus="#215578",
+        margin=10,
+    ),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -147,8 +168,8 @@ layouts = [
 
 widget_defaults = dict(
     font="Mononoki Nerd Font",
-    fontsize=18,
-    padding=3,
+    fontsize=20,
+    padding=2,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -185,7 +206,10 @@ floating_layout = layout.Floating(
         Match(wm_class="pavucontrol"),  # pavucontrol
         Match(wm_class="blueman-manager"),  # blueman-manager
         Match(wm_class="wlogout"),  # wlogout
-    ]
+        Match(wm_class="emulator"),  # android emulator
+    ],
+    border_focus="#215578",
+    border_width=3,
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -199,48 +223,66 @@ auto_minimize = True
 wl_input_rules = None
 
 wmname = "LG3D"
+sep = widget.Sep(linewidth=2,  foreground="#215578")
 
 screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
+                widget.CurrentLayoutIcon(
+                    scale=0.7,
+                ),
+                widget.GroupBox(
+                    active="#f5ff7f",
+                ),
+                sep,
                 widget.TaskList(
                     title_width_method="uniform",
-                    highlight_method="line",
+                    highlight_method="block", 
+                    padding=4,
+                    margin=0,
+                    borderwidth=3,
+                    markup_focused='<span color="#f5ff7f">{}</span>',
+                    markup_normal='<span color="#6b6b6b">{}</span>',
                 ),
+                sep,
                 widget.DF(
-                    warn_space=512,
+                    warn_space=50,
                     visible_on_warn=True,
                     format="  {f}|{s}{m}",
                 ),
+                widget.Pomodoro(
+                    fmt=" {}",
+                    padding=5,
+                    length_pomodori=50,
+                    length_short_break=10,
+                    length_long_break=30,
+                ),
                 widget.Clock(
-                    # clock icon: 
-                    format="  %H:%M",
-                    fmt="<span color='#ff79c6'>{}</span>",
-                    padding=10,
+                    format=" %H:%M",
+                    fmt="<span color='#f58f7f'>{}</span>",
                 ),
                 widget.Battery(
-                    # charging icon: 
-                    charge_char=" ",
-                    discharge_char=" ",
-                    format="{char}{percent:2.0%}",
+                    charge_char="",
+                    discharge_char="󰁹",
+                    format="{char} {percent:2.0%}",
                     update_interval=5,
                     foreground="#50fa7b",
+                    full_char=" ",
+                    padding=5,
                 ),
                 widget.Volume(
-                    fmt="  {}",
-                    padding=10,
+                    fmt="  {} ",
+                    foreground="#ff79c6",
                 ),
+                sep,
                 widget.Systray(
-                    background="#282a36",
-                ),
-                widget.CurrentLayoutIcon(
-                    scale=0.8,
+                    icon_size=25,
                 ),
             ],
             32,
-            # background="#282a36",
+            background="#24161b",
+            shadow=0,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
