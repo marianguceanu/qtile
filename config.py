@@ -144,11 +144,11 @@ layouts = [
         border_focus="#215578",
         margin=10,
     ),
-    layout.Columns(
-        margin=10,
-        border_focus="#215578",
-        border_width=3,
-    ),
+    # layout.Columns(
+    #     margin=10,
+    #     border_focus="#215578",
+    #     border_width=3,
+    # ),
     layout.MonadTall(
         border_width=3,
         border_focus="#215578",
@@ -167,8 +167,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Mononoki Nerd Font",
-    fontsize=20,
+    font="Fira Sans SemiBold",
+    fontsize=16,
     padding=2,
 )
 extension_defaults = widget_defaults.copy()
@@ -229,20 +229,22 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.GroupBox(
+                    padding=5,
+                    highlight_method="block",
+                ),
+                sep,
                 widget.CurrentLayoutIcon(
                     scale=0.7,
-                ),
-                widget.GroupBox(
-                    active="#f5ff7f",
                 ),
                 sep,
                 widget.TaskList(
                     title_width_method="uniform",
-                    highlight_method="block", 
-                    padding=4,
-                    margin=0,
-                    borderwidth=3,
-                    markup_focused='<span color="#f5ff7f">{}</span>',
+                    padding=0,
+                    margin=5,
+                    border="#303030",
+                    borderwidth=0,
+                    # markup_focused='<span text_transform="uppercase" >{}</span>',
                     markup_normal='<span color="#6b6b6b">{}</span>',
                 ),
                 sep,
@@ -251,29 +253,17 @@ screens = [
                     visible_on_warn=True,
                     format="  {f}|{s}{m}",
                 ),
-                widget.Pomodoro(
-                    fmt=" {}",
-                    padding=5,
-                    length_pomodori=50,
-                    length_short_break=10,
-                    length_long_break=30,
-                ),
                 widget.Clock(
-                    format=" %H:%M",
-                    fmt="<span color='#f58f7f'>{}</span>",
+                    format="%H:%M",
+                    mouse_callbacks={"Button1": lazy.spawn("evolution")},
                 ),
                 widget.Battery(
-                    charge_char="",
-                    discharge_char="󰁹",
-                    format="{char} {percent:2.0%}",
+                    format="Bat: {char} {percent:2.0%}",
                     update_interval=5,
-                    foreground="#50fa7b",
-                    full_char=" ",
-                    padding=5,
+                    padding=10,
                 ),
                 widget.Volume(
-                    fmt="  {} ",
-                    foreground="#ff79c6",
+                    fmt="Vol: {} ",
                 ),
                 sep,
                 widget.Systray(
@@ -281,7 +271,7 @@ screens = [
                 ),
             ],
             32,
-            background="#24161b",
+            background="#14161b",
             shadow=0,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
