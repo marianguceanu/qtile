@@ -140,7 +140,7 @@ for i in groups:
 
 layouts = [
     layout.Max(
-        border_width=3,
+        border_width=4,
         border_focus="#215578",
         margin=10,
     ),
@@ -150,7 +150,7 @@ layouts = [
     #     border_width=3,
     # ),
     layout.MonadTall(
-        border_width=3,
+        border_width=4,
         border_focus="#215578",
         margin=10,
     ),
@@ -167,9 +167,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Fira Sans SemiBold",
+    font="Fira Sans Semibold",
     fontsize=16,
-    padding=2,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -230,47 +229,48 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(
-                    padding=5,
+                    padding=7,
+                    rounded=False,
                     highlight_method="block",
-                ),
-                sep,
-                widget.CurrentLayoutIcon(
-                    scale=0.7,
-                ),
-                sep,
-                widget.TaskList(
-                    title_width_method="uniform",
-                    padding=0,
-                    margin=5,
-                    border="#303030",
-                    borderwidth=0,
-                    # markup_focused='<span text_transform="uppercase" >{}</span>',
-                    markup_normal='<span color="#6b6b6b">{}</span>',
-                ),
-                sep,
-                widget.DF(
-                    warn_space=50,
-                    visible_on_warn=True,
-                    format="  {f}|{s}{m}",
                 ),
                 widget.Clock(
                     format="%H:%M",
+                    padding=7,
+                    background="#34363b",
                     mouse_callbacks={"Button1": lazy.spawn("evolution")},
                 ),
+                widget.TaskList(
+                    title_width_method="uniform",
+                    highlight_method="block",
+                    background="#24262b",
+                    padding=6,
+                    margin=0,
+                    border="#215578",
+                    rounded=False,
+                    # markup_focused='<span text_transform="uppercase" >{}</span>',
+                ),
                 widget.Battery(
-                    format="Bat: {char} {percent:2.0%}",
+                    format="{char} {percent:2.0%}",
                     update_interval=5,
                     padding=10,
+                    discharge_char="󰁹",
+                    charge_char="󰂅",
                 ),
                 widget.Volume(
-                    fmt="Vol: {} ",
+                    fmt="   {} ",
+                    volume_app="pavucontrol",
                 ),
-                sep,
+                widget.CurrentLayoutIcon(
+                    padding=0,
+                    margin=0,
+                    background="#215578",
+                ),
                 widget.Systray(
                     icon_size=25,
+                    background="#34363b",
                 ),
             ],
-            32,
+            30,
             background="#14161b",
             shadow=0,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
