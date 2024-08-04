@@ -140,9 +140,8 @@ for i in groups:
 
 layouts = [
     layout.Max(
-        border_width=4,
+        border_width=0,
         border_focus="#215578",
-        margin=10,
     ),
     # layout.Columns(
     #     margin=10,
@@ -222,52 +221,52 @@ auto_minimize = True
 wl_input_rules = None
 
 wmname = "LG3D"
-sep = widget.Sep(linewidth=2,  foreground="#215578")
 
 screens = [
     Screen(
         top=bar.Bar(
             [
                 widget.GroupBox(
-                    padding=7,
+                    padding=6,
                     rounded=False,
                     highlight_method="block",
                 ),
                 widget.Clock(
                     format="%H:%M",
                     padding=7,
-                    background="#34363b",
+                    background="#215578",
                     mouse_callbacks={"Button1": lazy.spawn("evolution")},
                 ),
                 widget.TaskList(
                     title_width_method="uniform",
                     highlight_method="block",
-                    background="#24262b",
                     padding=6,
                     margin=0,
-                    border="#215578",
+                    border="#34363b",
                     rounded=False,
-                    # markup_focused='<span text_transform="uppercase" >{}</span>',
                 ),
                 widget.Battery(
                     format="{char} {percent:2.0%}",
+                    background="#24262b",
                     update_interval=5,
-                    padding=10,
+                    padding=15,
                     discharge_char="󰁹",
                     charge_char="󰂅",
                 ),
                 widget.Volume(
                     fmt="   {} ",
+                    background="#24262b",
                     volume_app="pavucontrol",
                 ),
-                widget.CurrentLayoutIcon(
-                    padding=0,
-                    margin=0,
-                    background="#215578",
+                widget.DF(
+                    partition="/",
+                    visible_on_warn=False,
+                    format='  {uf}{m}',
+                    background="#24262b",
                 ),
                 widget.Systray(
                     icon_size=25,
-                    background="#34363b",
+                    background="#215578",
                 ),
             ],
             30,
