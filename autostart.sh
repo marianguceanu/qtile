@@ -19,3 +19,6 @@ nitrogen --restore &
 # Start dunst
 killall dunst
 dunst &
+
+# Enable touchpad gestures
+xinput set-prop "MSFT0002:00 04F3:3140 Touchpad" "libinput Tapping Enabled" 1

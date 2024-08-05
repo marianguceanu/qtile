@@ -166,7 +166,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Fira Sans Semibold",
+    font="Mononoki Nerd Font Bold",
     fontsize=16,
 )
 extension_defaults = widget_defaults.copy()
@@ -230,39 +230,42 @@ screens = [
                     padding=6,
                     rounded=False,
                     highlight_method="block",
+                    font="Mononoki Nerd Font",
                 ),
                 widget.Clock(
                     format="%H:%M",
                     padding=7,
-                    background="#215578",
+                    background="#24262b",
                     mouse_callbacks={"Button1": lazy.spawn("evolution")},
                 ),
                 widget.TaskList(
+                    font="Mononoki Nerd Font",
                     title_width_method="uniform",
                     highlight_method="block",
                     padding=6,
                     margin=0,
-                    border="#34363b",
+                    background="#34363b",
                     rounded=False,
+                ),
+                widget.KeyboardLayout(
+                    configured_keyboards=['us', 'ro'],
+                    fmt="  {}",
                 ),
                 widget.Battery(
                     format="{char} {percent:2.0%}",
-                    background="#24262b",
                     update_interval=5,
                     padding=15,
                     discharge_char="󰁹",
                     charge_char="󰂅",
                 ),
                 widget.Volume(
-                    fmt="   {} ",
-                    background="#24262b",
+                    fmt="  {} ",
                     volume_app="pavucontrol",
                 ),
                 widget.DF(
                     partition="/",
                     visible_on_warn=False,
                     format='  {uf}{m}',
-                    background="#24262b",
                 ),
                 widget.Systray(
                     icon_size=25,
