@@ -104,12 +104,12 @@ for vt in range(1, 8):
 #     Group("1", label=" "),
 #     Group("2", label=" "),
 #     Group("3", label="󰊻 "),
-#     Group("4", label=""),
-#     Group("5", label=""),
-#     Group("6", label=""),
-#     Group("7", label=""),
-#     Group("8", label=""),
-#     Group("9", label="?"),
+#     Group("4", label=" "),
+#     Group("5", label=" "),
+#     Group("6", label=" "),
+#     Group("7", label=" "),
+#     Group("8", label=" "),
+#     Group("9", label="? "),
 # ]
 groups = [Group(i) for i in "123456789"]
 # groups = [Group(i) for i in "abcdefghi"]
@@ -142,6 +142,9 @@ layouts = [
     layout.Max(
         border_width=0,
         border_focus="#215578",
+        max_rules=[
+            Match(wm_class="wlogout"),  # wlogout
+        ]
     ),
     # layout.Columns(
     #     margin=10,
@@ -203,11 +206,10 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="pavucontrol"),  # pavucontrol
         Match(wm_class="blueman-manager"),  # blueman-manager
-        Match(wm_class="wlogout"),  # wlogout
         Match(wm_class="emulator"),  # android emulator
     ],
     border_focus="#215578",
-    border_width=3,
+    border_width=4,
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -228,6 +230,7 @@ screens = [
             [
                 widget.GroupBox(
                     padding=6,
+                    margin_x=0,
                     rounded=False,
                     highlight_method="block",
                     font="Mononoki Nerd Font",
@@ -244,12 +247,12 @@ screens = [
                     highlight_method="block",
                     padding=6,
                     margin=0,
-                    background="#34363b",
                     rounded=False,
                 ),
                 widget.KeyboardLayout(
                     configured_keyboards=['us', 'ro'],
                     fmt="  {}",
+                    background="#24262b",
                 ),
                 widget.Battery(
                     format="{char} {percent:2.0%}",
@@ -257,19 +260,22 @@ screens = [
                     padding=15,
                     discharge_char="󰁹",
                     charge_char="󰂅",
+                    background="#24262b",
                 ),
                 widget.Volume(
                     fmt="  {} ",
                     volume_app="pavucontrol",
+                    background="#24262b",
                 ),
                 widget.DF(
                     partition="/",
                     visible_on_warn=False,
-                    format='  {uf}{m}',
+                    format=' {uf}{m}',
+                    background="#24262b",
                 ),
                 widget.Systray(
                     icon_size=25,
-                    background="#215578",
+                    background="#34363b",
                 ),
             ],
             30,
